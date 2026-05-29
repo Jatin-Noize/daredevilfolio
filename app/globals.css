@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Courier+Prime:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --devil-red: #CC0000;
+  --devil-crimson: #8B0000;
+  --devil-blood: #5C0000;
+  --devil-dark: #0A0A0A;
+  --devil-noir: #111111;
+  --devil-smoke: #1A1A1A;
+  --devil-ash: #2A2A2A;
+  --devil-fog: #888888;
+  --devil-silver: #CCCCCC;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--devil-dark);
+  color: var(--devil-silver);
+  font-family: 'Crimson Text', serif;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+::selection {
+  background: var(--devil-red);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--devil-dark); }
+::-webkit-scrollbar-thumb { background: var(--devil-crimson); }
+::-webkit-scrollbar-thumb:hover { background: var(--devil-red); }
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.3;
+}
+
+.glow-red {
+  text-shadow: 0 0 20px var(--devil-red), 0 0 40px var(--devil-crimson);
+}
+
+.glow-box-red {
+  box-shadow: 0 0 20px var(--devil-red), 0 0 40px rgba(139,0,0,0.4);
+}
+
+.border-glow {
+  border: 1px solid rgba(204,0,0,0.5);
+  box-shadow: 0 0 10px rgba(204,0,0,0.2), inset 0 0 10px rgba(204,0,0,0.05);
+}
+
+.text-gradient-red {
+  background: linear-gradient(135deg, #CC0000, #FF4444, #8B0000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.scan-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(204,0,0,0.6), transparent);
+  animation: scan 4s linear infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(-10px); }
+  100% { transform: translateY(calc(100% + 10px)); }
+}
+
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: 0.8; }
+  97% { opacity: 1; }
+  98% { opacity: 0.6; }
+}
+
+.flicker {
+  animation: flicker 5s linear infinite;
+}
+
+.diagonal-cut {
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%);
+}
+
+.hero-bg {
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(139,0,0,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(92,0,0,0.1) 0%, transparent 50%),
+    linear-gradient(180deg, #0A0A0A 0%, #111111 50%, #0A0A0A 100%);
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(204,0,0,0.8);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px rgba(204,0,0,0.3);
+}
